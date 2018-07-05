@@ -1,0 +1,210 @@
+{% macro list_posts(annee, max_posts = 50) -%}
+    {% if annee %}
+        {% for post in posts | sort(attribute='postTotalClapCount' , reverse = True) | selectattr('year','equalto',annee) %}
+            {% if max_posts >= loop.index %}
+            <div class="story">
+                <div class="index">{{loop.index}}</div>
+                <a class="image" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">
+                    {% if post.postPreviewImage %}
+                        <img src="https://cdn-images-1.medium.com/max/200/{{post.postPreviewImage}}" >
+                    {% else %}
+                        <img src="https://mediumino.fr/placeholder.png" >
+                    {%endif%}
+                </a>
+                <div class="info">
+                    <a class="title" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">{{post.postTitle}}</a>
+                    <a class="author" href="https://medium.com/{{anaisrichardin}}">{{post.name}}</a>
+                </div>
+                <div class="recommends">{{post.postTotalClapCount}} <img src="clap.png"></div>
+            </div>
+            {%endif%}
+        {% endfor %}  
+    {% else %}
+        {% for post in posts | sort(attribute='postTotalClapCount' , reverse = True) %}
+            {% if max_posts >= loop.index %}
+            <div class="story">
+                <div class="index">{{loop.index}}</div>
+                <a class="image" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">
+                    {% if post.postPreviewImage %}
+                        <img src="https://cdn-images-1.medium.com/max/200/{{post.postPreviewImage}}" >
+                    {% else %}
+                        <img src="https://mediumino.fr/placeholder.png" >
+                    {%endif%}
+                </a>
+                <div class="info">
+                    <a class="title" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">{{post.postTitle}}</a>
+                    <a class="author" href="https://medium.com/{{anaisrichardin}}">{{post.name}}</a>
+                </div>
+                <div class="recommends">{{post.postTotalClapCount}} <img src="clap.png"></div>
+            </div>
+            {%endif%}
+        {% endfor %}  
+    {%endif%}
+{%- endmacro %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108543487-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108543487-1');
+</script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>
+   Les suggestions de lectures et d'auteurs français dans Medium
+  </title>
+<meta content="Medium.com version France : Une selection des meilleurs articles de Medium écrits en français " name="description">
+
+<link href="font.css" rel="stylesheet" type="text/css">
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+<link href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:1.2em; font-family:'Josefin Sans',sans-serif; width:100%;}
+</style>
+
+<link href="bootstrap.min.css" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+<meta content="width=device-width, initial-scale=1" name="viewport">
+  
+</head>
+<body>
+<div class="container">
+
+<div class="top">
+<h1 id="website-title">
+Une sélection des meilleurs articles de Medium
+</h1>
+
+<br>
+<div id="caption">
+Une sélection de nbArticles articles. Recevez chaque mercredi les nouveaux articles sélectionnés.
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="https://07h22.us17.list-manage.com/subscribe/post?u=e2ebc574abd0d2c17c4c244f6&amp;id=eb375314d2" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_e2ebc574abd0d2c17c4c244f6_eb375314d2" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="OK" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+    
+<div id="view-mode">
+Voir :
+<div id="compact">
+Compacte
+</div>
+<div class="active" id="full">
+Complète
+</div>
+</div>
+
+
+<div id="filter">
+<div id="all">
+Tous
+</div>
+<div class="active" id="2018">
+2018
+</div>
+<div id="2017">
+2017
+</div>
+<div id="2016">
+2016
+</div>
+<div id="2015">
+2015
+</div>
+</div>
+</div>
+
+<div id="waiting">
+   
+</div>    
+    
+<div class="story-list" id="all-story-list">
+        {{ list_posts(0, 50) }}  
+</div>
+<div class="load-more" id="all-load">
+En voir plus...
+</div>
+
+<div class="story-list" id="2018-story-list" style="display:block;">
+        {{ list_posts(2018, 50) }}
+</div>
+<div class="load-more" id="2018-load" style="display:block;">
+En voir plus...
+</div>
+
+    
+<div class="story-list" id="2017-story-list">
+        {{ list_posts(2017, 20) }}
+</div>
+<div class="load-more" id="2017-load">
+En voir plus...
+</div>
+
+<div class="story-list" id="2016-story-list">
+        {{ list_posts(2016, 20) }}
+</div>
+<div class="load-more" id="2016-load">
+En voir plus...
+</div>
+
+
+<div class="story-list" id="2015-story-list">
+        {{ list_posts(2015, 20) }}
+</div>
+<div class="load-more" id="2015-load">
+En voir plus...
+</div>
+
+<div class="story-list" id="2014-story-list">
+        {{ list_posts(2014, 20) }}
+</div>
+<div class="load-more" id="2014-load">
+En voir plus...
+</div>
+
+<div class="story-list" id="2013-story-list">
+        {{ list_posts(2013) }}    
+</div>
+
+<div class="footer">
+<span class="left">
+Réalisé par
+<a href="https://medium.com/@herve07h22.com">
+Hervé
+</a>    
+D'après une idée de 
+<a href="https://michaeldeng.me/">
+Michael Deng
+</a>
+</span>
+<span class="right">
+Aucun rapport avec 
+<a href="https://medium.com/">
+Medium
+</a>
+</span>
+</div>
+</div>
+<script  src="jquery-2.2.4.min.js"> </script>
+<script src="./scripts.js">
+ </script>
+</body></html>

@@ -15,7 +15,7 @@ SPIDER_MODULES = ['mediumino.spiders']
 NEWSPIDER_MODULE = 'mediumino.spiders'
 
 LOG_LEVEL = 'INFO'
-LOG_FILE = 'mediumino_fr.log'
+#LOG_FILE = 'mediumino_fr.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'mediumino (+http://www.yourdomain.com)'
@@ -69,8 +69,7 @@ RANDOMIZE_DOWNLOAD_DELAY =  True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'mediumino.pipelines.JsonPipeline' : 300,
-    'mediumino.pipelines.MediuminoPipeline': 350,
+    'mediumino.pipelines.MediuminoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

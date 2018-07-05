@@ -1,0 +1,29 @@
+html body{font-size:10px;font-family:'Josefin Sans',sans-serif;}
+
+body .container{margin:auto;width:95%;padding-top:20px;padding-bottom:20px;}
+
+body a{color:black;}body a:hover{color:black;text-decoration:none;}
+
+body a:active{color:black;text-decoration:none;}@media (min-width: 480px) {html body{font-size:12px;}
+
+body .container{width:90%;padding-top:30px;padding-bottom:30px;}}@media (min-width: 768px) {html body{font-size:14px;}
+body .container{width:80%;padding-top:50px;}}@media (min-width: 992px) {html body{font-size:16px;}
+body .container{width:70%;padding-top:80px;}}@media (min-width: 1200px) {body .container{width:60%;}}
+.active{color:#D8315B;border-bottom:2px solid #D8315B;}.top{overflow:auto;}.top #website-title{font-size:2em;float:left;}.top #view-mode{font-size:1em;padding-top:1em;float:right;}.top #view-mode div{float:right;margin-left:0.5em;cursor:pointer;}.top #caption{padding-top:3.5em;}.top #filter{font-size:1.2em;padding-top:1em;}.top #filter div{float:left;margin-right:0.8em;cursor:pointer;}@media (min-width: 480px) {.top .view-mode{padding-top:0.95em;float:right;}}@media (min-width: 768px) {.top #website-title{font-size:2.4em;}.top #view-mode{font-size:1.2em;padding-top:1em;}}
+.story-list{padding-top:1em;display:none;min-height:100%;}
+.story{width:100%;overflow:auto;margin-top:1em;}
+
+.index{float:left;width:1.8em;font-size:1.2em;}
+.image{float:left;}.image img{width:90px;height:60px;object-fit:cover;}.info{float:left;margin-left:0.5em;width:calc(100% - 18em);}.info .title{display:block;font-size:1.2em;}.info .author,.info .pub{padding:5px 0;}.info .title:focus,.info .author:focus,.info .pub:focus{text-decoration:none;color:#333333;}.recommends{float:right;font-size:1.2em;}.recommends img{width:1.1em;margin-bottom:0.3em;}@media (min-width: 768px) {.image img{width:120px;height:80px;}}.compact .story{margin-top:0.5em;}.compact .index{font-size:1em;}.compact .image{display:none;}.compact .info{width:80%;}
+
+.compact .info .title{font-size:1em;}
+
+.compact .info .author,.compact .info .separator,.compact .info .pub{display:none;}
+
+.compact .recommends{font-size:1em;}
+.load-more{width:8em;font-size:1.5em;padding:0.5em 0.5em 0.2em 0.5em;text-align:center;margin:0.8em auto 0 auto;color:#D8315B;cursor:pointer;display:none;}
+.footer{margin-top:2em;overflow:auto;}
+.footer .left{float:left;}
+.footer .left a{color:#D8315B;}
+.footer .right{float:right;}
+.footer .right a{color:#02B875;}

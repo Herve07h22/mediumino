@@ -58,7 +58,6 @@ class MediumSpider(scrapy.Spider):
                         yield {
                             'name' : publishedName,
                             'userName' : userName,
-                            'publishedName' : publishedName,
                             'userId' : userId,
                             'postId' : postId, 
                             'postTitle' : postTitle, 
@@ -70,7 +69,7 @@ class MediumSpider(scrapy.Spider):
                             'detectedLanguage' : self.medium_detected_language,
                         }
                     # parse responses to find links
-                    # yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
+                    yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
                     
     def parse_responses(self, response):
         r = json.loads(response.text[16:])
