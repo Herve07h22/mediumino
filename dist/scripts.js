@@ -112,7 +112,11 @@ function load(num){
 			var year=val['year'];
 			var author=val['name'];
 			var author_url= "https://medium.com/" + val['userName'];
-			var image= "https://cdn-images-1.medium.com/max/200/" + val['postPreviewImage'];
+			if (val['postPreviewImage']) {
+				var image= "https://cdn-images-1.medium.com/max/200/" + val['postPreviewImage'];
+			} else {
+				var image= "https://mediumino.fr/placeholder.png";
+			}
 			var story_url= "https://medium.com/@" + val['userName'] + "/" + val['postSlug'];
 			var recommends=parseInt(val['postTotalClapCount']).toString();
 			if(recommends.length>3){
@@ -132,11 +136,6 @@ function load(num){
 					var $author=$('<a>',{'class':'author','text':author,'href':author_url});
 					$infoLink.append($title);
 					$infoLink.append($author);
-					if(pub){
-						var $separator=$('<span>',{'class':'separator','text':' in '});
-						var $pub=$('<a>',{'class':'pub','text':pub,'href':pub_url});
-						$infoLink.append($separator);$infoLink.append($pub);
-					}
 					$story.append($infoLink);
 					$recommends=$('<div>',{'class':'recommends','text':recommends+' '});
 					$clap=$('<img>',{'src':'clap.png'});
