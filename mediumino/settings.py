@@ -62,9 +62,10 @@ RANDOMIZE_DOWNLOAD_DELAY =  True
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+    'scrapy.extensions.closespider.CloseSpider': 300,
+}
+CLOSESPIDER_TIMEOUT = 300
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
