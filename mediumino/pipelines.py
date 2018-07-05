@@ -6,12 +6,14 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from scrapy.exporters import JsonItemExporter
+from scrapy.exceptions import DropItem
 import json
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import os.path
 
 class MediuminoPipeline(object):
     def __init__(self):
+        self.posts_seen = set()
         self.file = open(os.path.join(os.getcwd(),"dist","medium.json"), 'wb')
         self.exporter = JsonItemExporter(self.file, encoding='utf-8', ensure_ascii=False)
         self.exporter.start_exporting()
@@ -22,8 +24,12 @@ class MediuminoPipeline(object):
         self.generateHtml(spider, "index.html", "index-template.html", spider.medium_detected_language, spider.medium_min_clap)
  
     def process_item(self, item, spider):
-        self.exporter.export_item(item)
-        return item
+        if item['postId'] in self.posts_seen:
+            raise DropItem("Duplicate item found: %s" % item['postId'])
+        else:
+            self.posts_seen.add(item['postId'])
+            self.exporter.export_item(item)
+            return item
 
     def generateHtml(self, spider, nomFichierSortie, nomFichierTemplate, detectedLanguage, medium_min_clap):
         spider.logger.info('Building file %s' % nomFichierSortie )
