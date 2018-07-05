@@ -108,15 +108,13 @@ function load(num){
         var storyLength=$(`#${selected}-story-list>div`).length;
 		var $storyList=$(`#${selected}-story-list`);
 		var i=0;$.each(stories,function(key,val){
-			var title=val[0];
-			var year=val[1]['year'];
-			var author=val[1]['author'];
-			var author_url=val[1]['author_url'];
-			var pub=val[1]['pub'];
-			var pub_url=val[1]['pub_url'];
-			var image=val[1]['image'];
-			var story_url=val[1]['story_url'];
-			var recommends=parseInt(val[1]['recommends']).toString();
+			var title=val['postTitle'];
+			var year=val['year'];
+			var author=val['name'];
+			var author_url= "https://medium.com/" + val['userName'];
+			var image= "https://cdn-images-1.medium.com/max/200/" + val['postPreviewImage'];
+			var story_url= "https://medium.com/@" + val['userName'] + "/" + val['postSlug'];
+			var recommends=parseInt(val['postTotalClapCount']).toString();
 			if(recommends.length>3){
 				recommends=recommends.slice(0,-3)+','+ recommends.slice(-3);
 			}
