@@ -7,7 +7,7 @@
         {% for post in posts | sort(attribute='postTotalClapCount' , reverse = True) | selectattr('postFirstPublishedAt','ge',today) %}
         <item>
             <title>{{post.postTitle}}</title>
-            <link>"{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}"</link>
+            <link>{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}</link>
             <guid isPermaLink="true">post.postId</guid>
             <pubDate>{{post.postFirstPublishedAt}}</pubDate>
             {% if post.postPreviewImage %}
