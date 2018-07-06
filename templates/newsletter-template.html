@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Mediumino</title>
+        <link>https://mediumino.fr</link>
+        <description>Les articles récemment entrés dans la sélection Mediumino.fr</description>
+        {% for post in posts | sort(attribute='postTotalClapCount' , reverse = True) | selectattr('postFirstPublishedAt','ge',today) %}
+        <item>
+            <title>{{post.postTitle}}</title>
+            <link>"{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}"</link>
+            <guid isPermaLink="true">post.postId</guid>
+            <pubDate>{{post.postFirstPublishedAt}}</pubDate>
+            {% if post.postPreviewImage %}
+            <enclosure url="https://cdn-images-1.medium.com/max/200/{{post.postPreviewImage}}" type="image/jpeg" />
+            {% else %}
+            <enclosure url="https://mediumino.fr/placeholder.png" type="image/jpeg" />
+            {%endif%}
+            <category>{{post.postTotalClapCount}}</category>
+            <author>{{post.name}}</author>
+            {% if post.postPreviewImage %}
+            <description>https://cdn-images-1.medium.com/max/200/{{post.postPreviewImage}}</description>
+            {% else %}
+            <description>https://mediumino.fr/placeholder.png</description>
+            {%endif%}
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

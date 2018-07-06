@@ -10,6 +10,7 @@ from scrapy.exceptions import DropItem
 import json
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import os.path
+from datetime import datetime,timedelta
 
 class MediuminoPipeline(object):
     def __init__(self):
@@ -21,7 +22,8 @@ class MediuminoPipeline(object):
     def close_spider(self, spider):
         self.exporter.finish_exporting()
         self.file.close()
-        self.generateHtml(spider, "index.html", "index-template.html", spider.medium_detected_language, spider.medium_min_clap)
+        self.generateHtml(spider, "index.html", "index-template.html")
+        self.generateHtml(spider, "newsletter.rss", "newsletter-template.html")
  
     def process_item(self, item, spider):
         if item['postId'] in self.posts_seen:
@@ -31,7 +33,7 @@ class MediuminoPipeline(object):
             self.exporter.export_item(item)
             return item
 
-    def generateHtml(self, spider, nomFichierSortie, nomFichierTemplate, detectedLanguage, medium_min_clap):
+    def generateHtml(self, spider, nomFichierSortie, nomFichierTemplate):
         spider.logger.info('Building file %s' % nomFichierSortie )
         
         #initialize `PackageLoader` with the directory to look for HTML templates
@@ -41,7 +43,7 @@ class MediuminoPipeline(object):
         #crawled_data = json.load(open(os.path.join(os.getcwd(),"dist","medium.json"), 'r', encoding='utf-8'))
         with open(os.path.join(os.getcwd(),"dist","medium.json"), encoding='utf-8') as json_file:  
             crawled_data = json.load(json_file)
-
+            crawled_data.sort(key = lambda x : x['postTotalClapCount'] , reverse=True)
             fichier_sortie = open(os.path.join(os.getcwd(),"dist",nomFichierSortie) , 'w', encoding='utf-8')
-            fichier_sortie.write(template.render(posts = crawled_data))
+            fichier_sortie.write(template.render(posts = crawled_data, today=(datetime.now() + timedelta(days=-15)).strftime("%Y-%m-%d")))
             fichier_sortie.close()
