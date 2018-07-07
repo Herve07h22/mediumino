@@ -65,7 +65,7 @@ RANDOMIZE_DOWNLOAD_DELAY =  True
 EXTENSIONS = {
     'scrapy.extensions.closespider.CloseSpider': 300,
 }
-CLOSESPIDER_TIMEOUT = 500
+CLOSESPIDER_TIMEOUT = 600
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html

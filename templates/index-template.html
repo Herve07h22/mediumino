@@ -13,7 +13,7 @@
                 </a>
                 <div class="info">
                     <a class="title" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">{{post.postTitle}}</a>
-                    <a class="author" href="https://medium.com/{{anaisrichardin}}">{{post.name}}</a>
+                    <a class="author" href="{{ "https://medium.com/@" + post.userName}}">{{post.name}}</a>
                 </div>
                 <div class="recommends">{{post.postTotalClapCount}} <img src="clap.png"></div>
             </div>
@@ -33,7 +33,7 @@
                 </a>
                 <div class="info">
                     <a class="title" href="{{ "https://medium.com/@" + post.userName + "/" + post.postSlug}}">{{post.postTitle}}</a>
-                    <a class="author" href="https://medium.com/{{anaisrichardin}}">{{post.name}}</a>
+                    <a class="author" href="{{ "https://medium.com/@" + post.userName}}">{{post.name}}</a>
                 </div>
                 <div class="recommends">{{post.postTotalClapCount}} <img src="clap.png"></div>
             </div>
@@ -87,7 +87,7 @@ Une sélection des meilleurs articles de Medium
 
 <br>
 <div id="caption">
-Une sélection de nbArticles articles. Recevez chaque mercredi les nouveaux articles sélectionnés.
+Une sélection de {{len(posts)}} articles. Recevez chaque mercredi les nouveaux articles sélectionnés.
 </div>
 
 <!-- Begin MailChimp Signup Form -->
