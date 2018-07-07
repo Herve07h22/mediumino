@@ -31,6 +31,7 @@ class MediumSpider(scrapy.Spider):
         self.medium_detected_language = get_parameter('MEDIUMINO_LANGUAGE', 'fr')
         self.medium_min_clap = int(get_parameter('MEDIUMINO_MIN_CLAP', '100'))
         self.medium_start_user = get_parameter('MEDIUMINO_USER_ID', 'be7f6e99fc1c')
+        self.medium_start_user_page = 0
         start_urls_resquests = [  scrapy.Request(self.users_api_url.format( self.medium_start_user)) ]
         return start_urls_resquests
     
@@ -81,10 +82,11 @@ class MediumSpider(scrapy.Spider):
         # parse all the followers
         r = json.loads(response.text[16:])
         for follower in r['payload']['value']:
-            self.logger.info('Crawling follower %s' % self.users_api_url.format(follower['userId'] ))
+            self.logger.info('Crawling follower %s' % follower['name'] )
             yield scrapy.Request(url = self.users_api_url.format(follower['userId']), callback=self.parse)
         if 'next' in r['payload']['paging']:
-            yield scrapy.Request(url = response.url + "?to=" + r['payload']['paging']['next']['to'] , callback=self.parse_followers)
+            yield scrapy.Request(url = self.followers_api_url.format(self.medium_start_user) + "?page=" + str(self.medium_start_user_page) , callback=self.parse_followers)
+            self.medium_start_user_page += 1
             
 
     def parse_responses(self, response):
