@@ -104,9 +104,11 @@ $('.load-more').click(function(){load(40);});
 
 function load(num){
 	$.getJSON('medium.json',function(stories){
-        document.getElementById("waiting").innerHTML += '<p><center> <img src="wait.gif"> </center></p>'
+		document.getElementById("waiting").innerHTML += '<p><center> <img src="wait.gif"> </center></p>'
+		stories.sort( (a, b) => b['postTotalClapCount'] - a['postTotalClapCount'] )
         var storyLength=$(`#${selected}-story-list>div`).length;
 		var $storyList=$(`#${selected}-story-list`);
+
 		var i=0;$.each(stories,function(key,val){
 			var title=val['postTitle'];
 			var year=val['year'];
