@@ -46,11 +46,13 @@ class MediumSpider(scrapy.Spider):
         userId = r['payload']['user']['userId']
         userName = r['payload']['user']['username']
         publishedName = r['payload']['user']['name']
+        authorWritesSelectedLanguage = False
         # crawling the posts matching the conditions
         if 'Post' in r['payload']['references'] :
             posts = r['payload']['references']['Post']
             for key in posts.keys():
                 if posts[key]['detectedLanguage'] == self.medium_detected_language :
+                    authorWritesSelectedLanguage = True
                     postCreatorId = posts[key]['creatorId']
                     postId = posts[key]['id']
                     postTitle = posts[key]['title']
@@ -74,18 +76,21 @@ class MediumSpider(scrapy.Spider):
                             'detectedLanguage' : self.medium_detected_language,
                         }
                         # parse responses to find new authors
-                        yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
-        if userId == self.medium_start_user:
+                        # yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
+        if authorWritesSelectedLanguage:
+            self.medium_start_user_page = 0
             yield scrapy.Request(url = self.followers_api_url.format(userId), callback=self.parse_followers)
+        # if userId == self.medium_start_user:
+        #yield scrapy.Request(url = self.followers_api_url.format(userId), callback=self.parse_followers)
 
     def parse_followers(self, response):
         # parse all the followers
         r = json.loads(response.text[16:])
         for follower in r['payload']['value']:
-            self.logger.info('Crawling follower %s' % follower['name'] )
+            #self.logger.info('Crawling follower %s' % follower['name'] )
             yield scrapy.Request(url = self.users_api_url.format(follower['userId']), callback=self.parse)
-        if 'next' in r['payload']['paging']:
-            yield scrapy.Request(url = self.followers_api_url.format(self.medium_start_user) + "?page=" + str(self.medium_start_user_page) , callback=self.parse_followers)
+        if 'next' in r['payload']['paging'] and self.medium_start_user_page < 10 :  
+            yield scrapy.Request(url = "https://medium.com" + r['payload']['paging']['path'] + "?page=" + str(self.medium_start_user_page) , callback=self.parse_followers)
             self.medium_start_user_page += 1
             
 
