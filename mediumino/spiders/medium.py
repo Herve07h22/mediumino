@@ -16,6 +16,7 @@ class MediumSpider(scrapy.Spider):
 
     users_api_url = 'https://medium.com/_/api/users/{}/profile/stream?page=20&limit=100'
     responses_api_url = 'https://medium.com/_/api/posts/{}/responses'
+    followers_api_url = 'https://medium.com/_/api/users/{}/following'
     
     # A adapter pour utiliserles variables d'environnement
     #start_urls = [ 
@@ -28,7 +29,7 @@ class MediumSpider(scrapy.Spider):
 
     def start_requests(self):
         self.medium_detected_language = get_parameter('MEDIUMINO_LANGUAGE', 'fr')
-        self.medium_min_clap = int(get_parameter('MEDIUMINO_MIN_CLAP', '30'))
+        self.medium_min_clap = int(get_parameter('MEDIUMINO_MIN_CLAP', '100'))
         self.medium_start_user = get_parameter('MEDIUMINO_USER_ID', 'be7f6e99fc1c')
         start_urls_resquests = [  scrapy.Request(self.users_api_url.format( self.medium_start_user)) ]
         return start_urls_resquests
@@ -37,7 +38,7 @@ class MediumSpider(scrapy.Spider):
     # start_urls = [ users_api_url.format('e011446d0731') ]
     # medium_detected_language = 'pt'
     # medium_min_clap = 100
-        
+
     def parse(self, response):
         r = json.loads(response.text[16:])
         # who is the author ?
@@ -71,9 +72,21 @@ class MediumSpider(scrapy.Spider):
                             'year' : postFirstPublishedAt.year,
                             'detectedLanguage' : self.medium_detected_language,
                         }
-                    # parse responses to find new authors
-                    yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
-                    
+                        # parse responses to find new authors
+                        yield scrapy.Request(url = self.responses_api_url.format(postId), callback=self.parse_responses)
+        if userId == self.medium_start_user:
+            yield scrapy.Request(url = self.followers_api_url.format(userId), callback=self.parse_followers)
+
+    def parse_followers(self, response):
+        # parse all the followers
+        r = json.loads(response.text[16:])
+        for follower in r['payload']['value']:
+            self.logger.info('Crawling follower %s' % self.users_api_url.format(follower['userId'] ))
+            yield scrapy.Request(url = self.users_api_url.format(follower['userId']), callback=self.parse)
+        if 'next' in r['payload']['paging']:
+            yield scrapy.Request(url = response.url + "?to=" + r['payload']['paging']['next']['to'] , callback=self.parse_followers)
+            
+
     def parse_responses(self, response):
         r = json.loads(response.text[16:])
         for user in list(self.findAllKey('creatorId',r)):
