@@ -45,5 +45,5 @@ class MediuminoPipeline(object):
             crawled_data = json.load(json_file)
             crawled_data.sort(key = lambda x : x['postTotalClapCount'] , reverse=True)
             fichier_sortie = open(os.path.join(os.getcwd(),"dist",nomFichierSortie) , 'w', encoding='utf-8')
-            fichier_sortie.write(template.render(posts = crawled_data, posts_number = len(crawled_data), today=(datetime.now() + timedelta(days=-7)).strftime("%Y-%m-%d")))
+            fichier_sortie.write(template.render(posts = crawled_data, language=spider.medium_detected_language , posts_number = len(crawled_data), today=(datetime.now() + timedelta(days=-7)).strftime("%Y-%m-%d")))
             fichier_sortie.close()

@@ -52,7 +52,7 @@ class MediumSpider(scrapy.Spider):
             posts = r['payload']['references']['Post']
             for key in posts.keys():
                 if posts[key]['detectedLanguage'] == self.medium_detected_language :
-                    authorWritesSelectedLanguage = True
+                    
                     postCreatorId = posts[key]['creatorId']
                     postId = posts[key]['id']
                     postTitle = posts[key]['title']
@@ -62,6 +62,7 @@ class MediumSpider(scrapy.Spider):
                     postFirstPublishedAt = datetime.date(datetime.fromtimestamp(posts[key]['firstPublishedAt']/1000))
                     postType = posts[key]['type']
                     if postTotalClapCount > self.medium_min_clap and userId == postCreatorId and postType == 'Post':
+                        authorWritesSelectedLanguage = True
                         yield {
                             'name' : publishedName,
                             'userName' : userName,

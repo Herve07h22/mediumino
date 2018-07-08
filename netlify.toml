@@ -9,6 +9,8 @@
   publish = "dist"
   command = "scrapy crawl medium"
 
-
+[[redirects]]
+  from = "/Brazil"
+  to = "https://nifty-euler-46922f.netlify.com/"
 
 
