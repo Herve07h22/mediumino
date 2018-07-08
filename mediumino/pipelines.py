@@ -22,8 +22,11 @@ class MediuminoPipeline(object):
     def close_spider(self, spider):
         self.exporter.finish_exporting()
         self.file.close()
-        self.generateHtml(spider, "index.html", "index-template.html")
-        self.generateHtml(spider, "newsletter.rss", "newsletter-template.html")
+        if spider.medium_detected_language == 'fr' :
+            self.generateHtml(spider, "index.html", "index-template.html")
+            self.generateHtml(spider, "newsletter.rss", "newsletter-template.html")
+        if spider.medium_detected_language == 'pt' :
+            self.generateHtml(spider, "index.html", "index-template.pt.html")
  
     def process_item(self, item, spider):
         if item['postId'] in self.posts_seen:
