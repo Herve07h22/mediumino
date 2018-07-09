@@ -13,4 +13,7 @@
   from = "/Brazil"
   to = "https://nifty-euler-46922f.netlify.com/"
 
-
+[[redirects]]
+  from = "http://zen-payne-c7d8c8.netlify.com/*"
+  to = "http://mediumino.fr/:splat"
+  status = 301!
