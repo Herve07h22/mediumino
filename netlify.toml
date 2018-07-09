@@ -16,4 +16,5 @@
 [[redirects]]
   from = "http://zen-payne-c7d8c8.netlify.com/*"
   to = "http://mediumino.fr/:splat"
-  status = 301!
+  status = 301
+
