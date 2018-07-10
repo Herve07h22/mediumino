@@ -103,59 +103,57 @@ $('#2013').click(function(){
 $('.load-more').click(function(){load(40);});
 
 function load(num){
-	$.getJSON('medium.json',function(stories){
-		document.getElementById("waiting").innerHTML += '<p><center> <img src="wait.gif"> </center></p>'
-		stories.sort( (a, b) => b['postTotalClapCount'] - a['postTotalClapCount'] )
-        var storyLength=$(`#${selected}-story-list>div`).length;
-		var $storyList=$(`#${selected}-story-list`);
+	$.getJSON('medium.json')
+		.done(function( stories ) {
+			stories.sort( (a, b) => b['postTotalClapCount'] - a['postTotalClapCount'] )
+			var storyLength=$(`#${selected}-story-list>div`).length;
+			var $storyList=$(`#${selected}-story-list`);
 
-		var i=0;$.each(stories,function(key,val){
-			var title=val['postTitle'];
-			var year=val['year'];
-			var author=val['name'];
-			var author_url= "https://medium.com/" + val['userName'];
-			if (val['postPreviewImage']) {
-				var image= "https://cdn-images-1.medium.com/max/200/" + val['postPreviewImage'];
-			} else {
-				var image= "https://mediumino.fr/placeholder.png";
-			}
-			var story_url= "https://medium.com/@" + val['userName'] + "/" + val['postSlug'];
-			var recommends=parseInt(val['postTotalClapCount']).toString();
-			if(recommends.length>3){
-				recommends=recommends.slice(0,-3)+','+ recommends.slice(-3);
-			}
-			if(selected=='all'||selected==year){
-				if(i>=storyLength){
-					var $story=$('<div>',{'class':'story'});
-					var $index=$('<div>',{'class':'index','text':(i+ 1).toString()});
-					$story.append($index);
-					var $imageLink=$('<a>',{'class':'image','href':story_url});
-					var $img=$('<img>',{'src':image});
-                    $imageLink.append($img);
-					$story.append($imageLink);
-					var $infoLink=$('<div>',{'class':'info'});
-					var $title=$('<a>',{'class':'title','text':title,'href':story_url});
-					var $author=$('<a>',{'class':'author','text':author,'href':author_url});
-					$infoLink.append($title);
-					$infoLink.append($author);
-					$story.append($infoLink);
-					$recommends=$('<div>',{'class':'recommends','text':recommends+' '});
-					$clap=$('<img>',{'src':'clap.png'});
-					$recommends.append($clap);
-					$story.append($recommends);
-					$storyList.append($story);
+			var i=0;$.each(stories,function(key,val){
+				var title=val['postTitle'];
+				var year=val['year'];
+				var author=val['name'];
+				var author_url= "https://medium.com/" + val['userName'];
+				if (val['postPreviewImage']) {
+					var image= "https://cdn-images-1.medium.com/max/200/" + val['postPreviewImage'];
+				} else {
+					var image= "https://mediumino.fr/placeholder.png";
 				}
-				i++;
-				if(i==storyLength+ num){
-					return false;
+				var story_url= "https://medium.com/@" + val['userName'] + "/" + val['postSlug'];
+				var recommends=parseInt(val['postTotalClapCount']).toString();
+				if(recommends.length>3){
+					recommends=recommends.slice(0,-3)+','+ recommends.slice(-3);
+				}
+				if(selected=='all'||selected==year){
+					if(i>=storyLength){
+						var $story=$('<div>',{'class':'story'});
+						var $index=$('<div>',{'class':'index','text':(i+ 1).toString()});
+						$story.append($index);
+						var $imageLink=$('<a>',{'class':'image','href':story_url});
+						var $img=$('<img>',{'src':image});
+						$imageLink.append($img);
+						$story.append($imageLink);
+						var $infoLink=$('<div>',{'class':'info'});
+						var $title=$('<a>',{'class':'title','text':title,'href':story_url});
+						var $author=$('<a>',{'class':'author','text':author,'href':author_url});
+						$infoLink.append($title);
+						$infoLink.append($author);
+						$story.append($infoLink);
+						$recommends=$('<div>',{'class':'recommends','text':recommends+' '});
+						$clap=$('<img>',{'src':'clap.png'});
+						$recommends.append($clap);
+						$story.append($recommends);
+						$storyList.append($story);
+					}
+					i++;
+					if(i==storyLength+ num){
+						return false;
+					}
 				}
 			}
-		}
-		);
-		if(i==500){
-			$(`#${selected}-load`).hide();
-		}
-        console.log('Apres chargement');
-        document.getElementById("waiting").innerHTML = "";
-	});
+			);
+			if(i==500){
+				$(`#${selected}-load`).hide();
+			}
+		});
 }
