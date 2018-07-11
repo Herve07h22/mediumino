@@ -18,3 +18,7 @@
   to = "http://mediumino.fr/:splat"
   status = 301
 
+[template.environment]
+  MEDIUMINO_LANGUAGE = "set the language (fr, pt, ...)"
+  MEDIUMINO_MIN_CLAP = "set the applause threshold (100)"
+  MEDIUMINO_USER_ID = "set the medium user ID (looks like be7f6e99fc1c)"
