@@ -23,6 +23,7 @@ See [Mediumino.fr](https://mediumino.fr) for the French version , and [Mediumino
 | MEDIUMINO_USER_ID  | Your medium ID. Example : be7f6e99fc1c
 
 * Build the site and test
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Herve07h22/mediumino)
 
 ## Custom theme
 
