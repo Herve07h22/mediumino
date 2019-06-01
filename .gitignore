@@ -3,3 +3,4 @@ mediumino/spiders/__pycache__
 .vscode/
 dist/index.html
 dist/medium.json
+env/
