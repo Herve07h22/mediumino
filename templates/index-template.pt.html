@@ -99,7 +99,10 @@ Compacto
 <div id="all">
 Todos
 </div>
-<div class="active" id="2018">
+<div class="active" id="2019">
+2019
+</div>
+<div id="2018">
 2018
 </div>
 <div id="2017">
@@ -124,6 +127,14 @@ Todos
 <div class="load-more" id="all-load">
 Veja mais...
 </div>
+
+<div class="story-list" id="2019-story-list" style="display:block;">
+    {{ list_posts(2019, 50) }}
+</div>
+<div class="load-more" id="2019-load" style="display:block;">
+Veja mais...
+</div>
+
 
 <div class="story-list" id="2018-story-list" style="display:block;">
         {{ list_posts(2018, 50) }}
