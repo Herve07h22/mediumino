@@ -68,7 +68,7 @@ EXTENSIONS = {
 }
 
 # 6 hours
-CLOSESPIDER_TIMEOUT = 60 * 1
+CLOSESPIDER_TIMEOUT = 60 * 13
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
