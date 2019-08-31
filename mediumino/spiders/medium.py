@@ -15,7 +15,8 @@ class MediumSpider(scrapy.Spider):
     allowed_domains = ['medium.com']
 
     users_api_url = 'https://medium.com/_/api/users/{}/profile/stream?page=20&limit=100'
-    followers_api_url = 'https://medium.com/_/api/users/{}/following'
+    #followers_api_url = 'https://medium.com/_/api/users/{}/following'
+    followers_api_url = 'https://medium.com/_/api/users/{}/profile/stream?source=followers'
     
     def start_requests(self):
         self.medium_detected_language = get_parameter('MEDIUMINO_LANGUAGE', 'fr')
@@ -31,6 +32,7 @@ class MediumSpider(scrapy.Spider):
         userName = r['payload']['user']['username']
         publishedName = r['payload']['user']['name']
         authorWritesSelectedLanguage = False
+        self.logger.info('Parsing author : %s', userName)
         # crawling the posts matching the conditions
         if 'Post' in r['payload']['references'] :
             posts = r['payload']['references']['Post']
@@ -61,14 +63,23 @@ class MediumSpider(scrapy.Spider):
                         }
                         
         if authorWritesSelectedLanguage:
+            #self.logger.info('Parsing followers of author : %s', userName)
             self.medium_start_user_page = 0
             yield scrapy.Request(url = self.followers_api_url.format(userId), callback=self.parse_followers)
 
     def parse_followers(self, response):
         # parse all the followers
         r = json.loads(response.text[16:])
-        for follower in r['payload']['value']:
-            yield scrapy.Request(url = self.users_api_url.format(follower['userId']), callback=self.parse)
-        if 'next' in r['payload']['paging'] and self.medium_start_user_page < 10 :  
-            yield scrapy.Request(url = "https://medium.com" + r['payload']['paging']['path'] + "?page=" + str(self.medium_start_user_page) , callback=self.parse_followers)
-            self.medium_start_user_page += 1            
+        if 'Social' in r['payload']['references']:
+            for follower in r['payload']['references']['Social']:
+                #self.logger.info('Parsing followers TargetUserId = %s', follower)
+                yield scrapy.Request(url = self.users_api_url.format(follower), callback=self.parse)
+        
+        if 'next' in r['payload']['paging'] and self.medium_start_user_page < 20 :
+            next = r['payload']['paging']['next']
+            if 'to' in next :
+                #self.logger.info('Getting url %s', r['payload']['paging']['path'] + "?page=" + str(next['page']) + "&to=" + next['to'] + "&source=followers")
+                yield scrapy.Request(url = r['payload']['paging']['path'] + "?page=" + str(next['page']) + "&to=" + next['to'] + "&source=followers" , callback=self.parse_followers)
+                self.medium_start_user_page += 1            
+
+

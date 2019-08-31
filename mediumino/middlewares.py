@@ -6,6 +6,11 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from mediumino.get_proxies import proxies_pool
+from mediumino.agents import AGENTS
+
+import random
+import time
 
 
 class MediuminoSpiderMiddleware(object):
@@ -101,3 +106,60 @@ class MediuminoDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+
+"""
+Custom proxy provider. 
+"""
+class CustomHttpProxyMiddleware(object):
+    
+    current_proxy = None
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        # This method is used by Scrapy to create your spiders.
+        s = cls()
+        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
+        return s
+
+    def spider_opened(self, spider):
+        spider.logger.info('Loading proxies for: %s' % spider.name)
+        self.PROXIES = proxies_pool()
+        # heure courante en secondes
+        self.heureActualisation = time.time()
+
+    def process_request(self, request, spider):
+        heureActuelle = time.time()
+        # Si la liste des proxies et plus vielle de 20 minutes, on l'actualise
+        if (heureActuelle - self.heureActualisation) > 20*60:
+            self.PROXIES = proxies_pool()
+            spider.logger.info('Liste des proxies actualisée :' + str(len(self.PROXIES)))
+            self.heureActualisation = heureActuelle
+
+        if self.current_proxy is None :
+            self.current_proxy = random.choice(self.PROXIES)
+        
+        spider.logger.info('---- Using proxy: %s' % self.current_proxy)
+        try:
+            request.meta['proxy'] = self.current_proxy['adresseIP'] + ":" + self.current_proxy['port'] 
+        except e:
+            # Change proxy
+            spider.logger.info("Exception %s" % e)
+            self.current_proxy = None
+    
+    def process_response(self, request, response, spider):
+        # Si la reponse est en erreur, on change de proxy
+        spider.logger.info('---- Response :: %s' % response)
+        if response.status != 200 :
+            self.current_proxy = None
+        return response
+
+                    
+"""
+change request header nealy every time
+"""
+class CustomUserAgentMiddleware(object):
+    def process_request(self, request, spider):
+        agent = random.choice(AGENTS)
+        request.headers['User-Agent'] = agent

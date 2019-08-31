@@ -56,16 +56,19 @@ RANDOMIZE_DOWNLOAD_DELAY =  True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'mediumino.middlewares.MediuminoDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+#    'mediumino.middlewares.CustomHttpProxyMiddleware': 543,
+#    'mediumino.middlewares.CustomUserAgentMiddleware': 544,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
 EXTENSIONS = {
     'scrapy.extensions.closespider.CloseSpider': 300,
 }
-CLOSESPIDER_TIMEOUT = 600
+
+# 6 hours
+CLOSESPIDER_TIMEOUT = 60 * 1
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
