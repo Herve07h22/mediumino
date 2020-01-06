@@ -87,7 +87,7 @@ Une sélection des meilleurs articles de Medium
 
 <br>
 <div id="caption">
-Une sélection de {{posts_number}} articles. Recevez chaque mercredi les nouveaux articles sélectionnés.
+Une sélection de {{posts_number}} articles. La sélection change chaque jour. Recevez chaque mercredi les nouveaux articles sélectionnés.
 </div>
 
 <!-- Begin MailChimp Signup Form -->
@@ -116,24 +116,27 @@ Complète
 
 
 <div id="filter">
-<div id="all">
-Tous
-</div>
-<div class="active" id="2019">
-2019
-</div>   
-<div id="2018">
-2018
-</div>
-<div id="2017">
-2017
-</div>
-<div id="2016">
-2016
-</div>
-<div id="2015">
-2015
-</div>
+    <div id="all">
+    Tous
+    </div>
+    <div id="2020" class="active">
+    2020
+    </div> 
+    <div id="2019">
+    2019
+    </div>   
+    <div id="2018">
+    2018
+    </div>
+    <div id="2017">
+    2017
+    </div>
+    <div id="2016">
+    2016
+    </div>
+    <div id="2015">
+    2015
+    </div>
 </div>
 </div>
 
@@ -148,10 +151,17 @@ Tous
 En voir plus...
 </div>
 
-<div class="story-list" id="2019-story-list" style="display:block;">
+<div class="story-list" id="2020-story-list" style="display:block;">
+    {{ list_posts(2020, 50) }}
+</div>
+<div class="load-more" id="2020-load" style="display:block;">
+En voir plus...
+</div>
+
+<div class="story-list" id="2019-story-list" >
     {{ list_posts(2019, 50) }}
 </div>
-<div class="load-more" id="2019-load" style="display:block;">
+<div class="load-more" id="2019-load" >
 En voir plus...
 </div>
 
@@ -199,7 +209,7 @@ En voir plus...
 <div class="footer">
 <span class="left">
 Réalisé par
-<a href="https://medium.com/@herve07h22.com">
+<a href="https://camilab.co">
 Hervé
 </a>    
 D'après une idée de 

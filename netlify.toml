@@ -7,7 +7,7 @@
 
 [build]
   publish = "dist"
-  command = "scrapy crawl medium"
+  command = "python ./templates/generate"
 
 [[redirects]]
   from = "/Brazil"

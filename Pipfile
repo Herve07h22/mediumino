@@ -1,0 +1,45 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+asn1crypto = "==0.24.0"
+astroid = "==1.6.5"
+attrs = "==18.1.0"
+cffi = "==1.11.5"
+colorama = "==0.3.9"
+constantly = "==15.1.0"
+cryptography = "==2.2.2"
+cssselect = "==1.0.3"
+hyperlink = "==18.0.0"
+idna = "==2.7"
+incremental = "==17.5.0"
+isort = "==4.3.4"
+lazy-object-proxy = "==1.3.1"
+lxml = "==4.2.3"
+mccabe = "==0.6.1"
+parsel = "==1.4.0"
+pyasn1 = "==0.4.3"
+pyasn1-modules = "==0.2.2"
+pycparser = "==2.18"
+pylint = "==1.9.2"
+queuelib = "==1.5.0"
+six = "==1.11.0"
+w3lib = "==1.19.0"
+wrapt = "==1.10.11"
+Automat = "==0.7.0"
+Jinja2 = "==2.10.1"
+MarkupSafe = "==1.0"
+PyDispatcher = "==2.0.5"
+pyOpenSSL = "==18.0.0"
+Scrapy = "==1.5.0"
+service_identity = "==17.0.0"
+Twisted = "==19.10.0"
+"zope.interface" = "==4.5.0"
+shub = "*"
+
+[requires]
+python_version = "3.7"

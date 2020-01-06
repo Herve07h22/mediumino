@@ -27,7 +27,7 @@ queuelib==1.5.0
 Scrapy==1.5.0
 service-identity==17.0.0
 six==1.11.0
-Twisted==18.4.0
+Twisted==19.10.0
 w3lib==1.19.0
 wrapt==1.10.11
 zope.interface==4.5.0

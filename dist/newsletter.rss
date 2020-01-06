@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Mediumino</title>
+        <link>https://mediumino.fr</link>
+        <description>Les articles récemment entrés dans la sélection Mediumino.fr</description>
+        
+        <item>
+            <title>Trois conférences qui m’ont inspirées en 2019</title>
+            <link>https://medium.com/@la_voix_des_pirates/trois-conférences-qui-mont-inspirées-en-2019-15da861dfb65</link>
+            <guid isPermaLink="true">post.postId</guid>
+            <pubDate>2020-01-01</pubDate>
+            
+            <enclosure url="https://mediumino.fr/placeholder.png" type="image/jpeg" />
+            
+            <category>210</category>
+            <author>Marie-Lise Picard</author>
+            
+            <description>https://mediumino.fr/placeholder.png</description>
+            
+        </item>
+        
+        <item>
+            <title>Tradition africaine: La mariée qui s’agenouille : symbole de soumission?</title>
+            <link>https://medium.com/@HalimatouSouko/tradition-africaine-la-mariée-qui-sagenouille-symbole-de-soumission-f52f29d9d9ad</link>
+            <guid isPermaLink="true">post.postId</guid>
+            <pubDate>2020-01-03</pubDate>
+            
+            <enclosure url="https://cdn-images-1.medium.com/max/200/1*EMf-aFEB1Ll-psYItfAcdg.jpeg" type="image/jpeg" />
+            
+            <category>151</category>
+            <author>Halimatou Soucko</author>
+            
+            <description>https://cdn-images-1.medium.com/max/200/1*EMf-aFEB1Ll-psYItfAcdg.jpeg</description>
+            
+        </item>
+        
+        <item>
+            <title>Dissonance.</title>
+            <link>https://medium.com/@slaapme/dissonance-e56fd56cd749</link>
+            <guid isPermaLink="true">post.postId</guid>
+            <pubDate>2020-01-04</pubDate>
+            
+            <enclosure url="https://cdn-images-1.medium.com/max/200/1*jriQ4HHVAXl03wu_Gy7IhQ.png" type="image/jpeg" />
+            
+            <category>120</category>
+            <author>Fabrice Liut</author>
+            
+            <description>https://cdn-images-1.medium.com/max/200/1*jriQ4HHVAXl03wu_Gy7IhQ.png</description>
+            
+        </item>
+        
+    </channel>
+</rss>

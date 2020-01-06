@@ -1,5 +1,5 @@
 
-selected = '2019';
+selected = '2020';
 
 	
 $('#full').click(function()
@@ -26,6 +26,17 @@ $('#all').click(function()
     $('#all-story-list').show();
 	$('#all-load').show();
 	});
+
+$('#2020').click(function() {
+	$('#filter').children().removeClass('active');
+	$('#2020').addClass('active');
+	$('.story-list').hide();
+	$('.load-more').hide();
+	selected='2020';
+	$('#2020-story-list').show();
+	$('#2020-load').show();
+	}
+);
 
 $('#2019').click(function() {
 
