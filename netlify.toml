@@ -7,7 +7,7 @@
 
 [build]
   publish = "dist"
-  command = "python ./templates/generate"
+  command = "python ./templates/generate.py"
 
 [[redirects]]
   from = "/Brazil"
