@@ -27,3 +27,9 @@ body .container{width:70%;padding-top:80px;}}@media (min-width: 1200px) {body .c
 .footer .left a{color:#D8315B;}
 .footer .right{float:right;}
 .footer .right a{color:#02B875;}
+.year-selection {
+    display:flex;
+    flex-direction: row;
+    max-width: 50%;
+    flex-wrap: wrap;
+}

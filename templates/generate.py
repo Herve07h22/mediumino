@@ -22,6 +22,8 @@ def get_data_from_scraping_hub(apikey, projectId, language):
     articles        = [ json.loads(l) for l in scrapingHubData.text.splitlines() ]
     # On sélectionne uniquement les articles du langage 
     articles_filtres = [a for a in articles if a["detectedLanguage"] == language]
+    # On les ordonne par clap (important pour retenir le doublon le + à jour)
+    articles_filtres.sort(key = lambda x : x['postTotalClapCount'] , reverse=True) 
     # On supprime les doublons
     post_slugs        = list(set([a["postSlug"] for a in articles_filtres]))
     articles_uniques  = [ find_article_by_slug(articles_filtres, slug) for slug in post_slugs]
